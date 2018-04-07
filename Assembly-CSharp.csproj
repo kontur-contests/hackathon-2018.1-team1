@@ -53,7 +53,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\HookController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\Points.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
