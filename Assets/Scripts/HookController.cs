@@ -5,37 +5,118 @@ using UnityEngine;
 public class HookController : MonoBehaviour {
 
     private SliderJoint2D distanceJoint;
-    private int terrainLayer = -1;
+    private int hookableLayer = -1;
+    private int hookableLayerMask = -1;
 
-	// Use this for initialization
-	void Start () {
-        distanceJoint = GetComponent<SliderJoint2D>();
-        terrainLayer = LayerMask.GetMask("Terrain");
+    public float hookSpeed = 10f;
+
+    public int hooksCount = 2;
+    private TargetJoint2D[] hooks;
+
+    private int currentHookIndex = -1;
+
+    private bool allHooksEnabled = false;
+
+    // Use this for initialization
+    void Start() {
+        //distanceJoint = GetComponent<SliderJoint2D>();
+        hookableLayer = LayerMask.NameToLayer("HookableTerrain");
+        hookableLayerMask = LayerMask.GetMask("HookableTerrain");
+
+        hooks = new TargetJoint2D[hooksCount];
+
+        for (var i = 0; i < hooks.Length; i++)
+        {
+            TargetJoint2D tj = gameObject.AddComponent(typeof(TargetJoint2D)) as TargetJoint2D;
+            tj.enabled = false;
+
+            hooks[i] = tj;
+        }
+    }
+
+    TargetJoint2D GetNextHook()
+    {
+        currentHookIndex = (currentHookIndex + 1) % hooksCount;
+        return hooks[currentHookIndex];
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!distanceJoint.enabled)
+            var nextHook = GetNextHook();
+
+            Debug.Log("Next hook" + nextHook);
+
+            Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            pointerPosition.z = 0;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, pointerPosition - transform.position, 100f, hookableLayerMask);
+
+            if (hit.collider != null)
             {
-                Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                pointerPosition.z = 0;
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, pointerPosition - transform.position, 100f, terrainLayer);
+                Debug.Log("Collder:" + hit.collider);
 
-                Debug.DrawRay(transform.position, pointerPosition - transform.position, Color.green);
-
-                if (hit.collider != null)
+                hit.point = new Vector2(hit.point.x, hit.point.y);
+                if (!nextHook.enabled)
                 {
-                    hit.point = new Vector2(hit.point.x, hit.point.y);
-
-                    distanceJoint.connectedAnchor = hit.point;
-                    distanceJoint.enabled = true;
+                    nextHook.enabled = true;
                 }
+
+                nextHook.target = hit.point;
             }
-        } else if (Input.GetMouseButtonUp(0))
+        }
+
+        //    var allHooksEnabled = false;
+
+        //    for (var i = 0; i < hooks.Length; i++)
+        //    {
+        //        var hook = hooks[i];
+
+        //        if (!hook.enabled)
+        //        {
+        //            Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //            pointerPosition.z = 0;
+        //            RaycastHit2D hit = Physics2D.Raycast(transform.position, pointerPosition - transform.position, 100f, hookableLayerMask);
+
+        //            if (hit.collider != null)
+        //            {
+        //                hit.point = new Vector2(hit.point.x, hit.point.y);
+
+        //                hook.connectedAnchor = hit.point;
+        //                hook.enabled = true;
+        //                hook.useMotor = true;
+        //            }
+
+        //            return;
+        //        } else if (i == hooks.Length - 1)
+        //        {
+        //            allHooksEnabled = true;
+        //            break;
+        //        }
+
+        //    }
+
+        //    if (allHooksEnabled)
+        //    {
+        //        for (var i = 0; i < hooks.Length; i++)
+        //        {
+        //            var hook = hooks[i];
+
+        //            if (hook.enabled)
+        //            {
+        //                hook.enabled = false;
+        //                return;
+        //            }
+        //        }
+        //    }
+        //}
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == hookableLayer)
         {
-            distanceJoint.enabled = false;
+
         }
     }
 }
