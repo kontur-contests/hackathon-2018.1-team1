@@ -7,8 +7,7 @@ public class BulletController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //var playerHealth = collision.collider.GetComponent<PlayerHealth>();
-        //playerHealth.TakeDamage();
+        Camera.main.GetComponent<GameManager>().TakeDamage(30);
 
         Destroy(gameObject);
     }

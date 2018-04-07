@@ -66,11 +66,6 @@ public class LaserArrester : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("LASER COLLIDE");
-
-        //var health = collision.collider.GetComponent<Health>();
-
-        //health.TakeDamage();
-
+        Camera.main.GetComponent<GameManager>().TakeDamage(20);
     }
 }

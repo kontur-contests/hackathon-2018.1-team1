@@ -6,20 +6,46 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	private int score;
-	public Text text;
+	public Text scoreText;
+    public Text healthText;
 
-	public void IncrementScore() {
+    private int playerHealth = 100;
+
+    public void TakeDamage(int damage = 10)
+    {
+        playerHealth -= damage;
+
+        healthText.text = "health: " + playerHealth;
+
+        if (playerHealth <= 0)
+        {
+            playerHealth = 0;
+            GameOverLevel();
+        }
+    }
+
+    public void IncrementScore() {
 		score += 10;
-		text.text = "score: " + score;
+        scoreText.text = "score: " + score;
 	}
 
     public void ChangeMenuToGame()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Level1");
     }
 
     public void SuccessLevel()
     {
-        Debug.Log("Level Complete!");
+        SceneManager.LoadScene("LevelComplete");
+    }
+
+    public void GameOverLevel()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Level1");
     }
 }

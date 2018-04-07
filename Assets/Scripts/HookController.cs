@@ -70,10 +70,12 @@ public class HookController : MonoBehaviour {
 
                 var listHits = new List<RaycastHit2D>(hits).OrderBy(hit => Math.Abs((transform.position - (Vector3)hit.point).magnitude - lenToPointer)).ToList();
 
-                var firstHit = listHits[0];
+                
 
-                if (firstHit)
+                if (listHits.Count > 0)
                 {
+                    var firstHit = listHits[0];
+
                     var point = new Vector2(firstHit.point.x, firstHit.point.y);
                     hooks[0].enabled = true;
                     hooks[0].target = point;
