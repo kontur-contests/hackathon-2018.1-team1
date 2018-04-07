@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: BitcoinBlock
   m_EditorClassIdentifier: 
   m_Prefabs:
-  - {fileID: 1184873343467790, guid: 86ea5ebb62296424081672582ce088d8, type: 2}
+  - {fileID: 1364138232618452, guid: 86ea5ebb62296424081672582ce088d8, type: 2}
   m_PerlinScale: 0.5
   m_Z: 0

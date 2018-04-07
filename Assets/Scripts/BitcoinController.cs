@@ -15,7 +15,8 @@ public class BitcoinController : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter(Collider other) {
+	void OnCollisionEnter2D(Collision2D collision) {
+		Debug.Log ("collision");
 		gm.IncrementScore ();
 		Destroy (gameObject);
 	}
