@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Spektr;
+using System;
+using System.Linq;
 
 public class HookController : MonoBehaviour {
 
@@ -10,12 +12,15 @@ public class HookController : MonoBehaviour {
     private int hookableLayerMask = -1;
     private TargetJoint2D[] hooks;
     private LineRenderer[] lines;
-    private int lengthOfLineRenderer = 3;
     private int currentHookIndex = -1;
     private bool allHooksEnabled = false;
 
+    public LineRenderer lineRenderer;
+
     public float hookSpeed = 10f;
-    public int hooksCount = 2;
+    public int hooksCount = 1;
+
+    private LightningRenderer[] lineElectricity;
 
 
     // Use this for initialization
@@ -24,15 +29,14 @@ public class HookController : MonoBehaviour {
         hookableLayer = LayerMask.NameToLayer("HookableTerrain");
         hookableLayerMask = LayerMask.GetMask("HookableTerrain");
 
-        LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
         lineRenderer.widthMultiplier = 0.05f;
-        lineRenderer.positionCount = lengthOfLineRenderer;
+        lineRenderer.positionCount = 0;
 
-        //Spektr.LightningRenderer lineElectricityRenderer = gameObject.AddComponent<Spektr.LightningRenderer>();
-        //lineElectricityRenderer.shader = Shader.Find("Hidden/Lightning");
-        //lineElectricityRenderer.randomSeed = 0;
-        //lineElectricityRenderer.mes
+        lineElectricity = transform.GetChild(0).GetComponents<Spektr.LightningRenderer>();
+
+        lineElectricity[0].enabled = false;
 
         hooks = new TargetJoint2D[hooksCount];
 
@@ -47,63 +51,157 @@ public class HookController : MonoBehaviour {
     TargetJoint2D GetNextHook()
     {
         currentHookIndex = (currentHookIndex + 1) % hooksCount;
+
         return hooks[currentHookIndex];
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetMouseButtonDown(0))
         {
-            var nextHook = GetNextHook();
-
-            Debug.Log("Next hook" + nextHook);
-
-            Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            pointerPosition.z = 0;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, pointerPosition - transform.position, 100f, hookableLayerMask);
-
-            if (hit.collider != null)
+            if (!hooks[0].enabled)
             {
-                Debug.Log("Collider:" + hit.collider);
+                Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                pointerPosition.z = 0;
 
-                hit.point = new Vector2(hit.point.x, hit.point.y);
-                if (!nextHook.enabled)
+                var hits = Physics2D.RaycastAll(transform.position, pointerPosition - transform.position, 100f, hookableLayerMask);
+
+                var lenToPointer = (pointerPosition - transform.position).magnitude;
+
+                var listHits = new List<RaycastHit2D>(hits).OrderBy(hit => Math.Abs((transform.position - (Vector3)hit.point).magnitude - lenToPointer)).ToList();
+
+                var firstHit = listHits[0];
+
+                if (firstHit)
                 {
-                    nextHook.enabled = true;
+                    var point = new Vector2(firstHit.point.x, firstHit.point.y);
+                    hooks[0].enabled = true;
+                    hooks[0].target = point;
+
+                    lineElectricity[0].enabled = true;
+
+                    lineRenderer.positionCount += 2;
                 }
 
-                nextHook.target = hit.point;
+
+
+                //foreach (var hit in hits)
+                //{
+                //    var lenToCollider = (transform.position - (Vector3)hit.point).magnitude;
+
+                //    Debug.Log("LEN TO COLLIDER:" + lenToCollider);
+                //    Debug.Log("LEN TO POINTER:" + lenToPointer);
+                //    Debug.Log("BOUND X:" + hit.collider.GetComponent<SpriteRenderer>().bounds.size.x);
+
+                //    if (lenToCollider > lenToPointer && lenToCollider < hit.collider.GetComponent<SpriteRenderer>().bounds.size.x)
+                //    {
+                //        continue;
+                //    }
+
+                //    Debug.Log("1337");
+
+                //    var point = new Vector2(hit.point.x, hit.point.y);
+                //    hooks[1].enabled = true;
+                //    hooks[1].target = point;
+
+                //    lineRenderer.positionCount += 2;
+
+                //    break;
+                //}
+            } else
+            {
+                hooks[0].enabled = false;
+                lineElectricity[0].enabled = false;
+                lineRenderer.positionCount -= 2;
             }
         }
+
+        //if (Input.GetMouseButtonDown(1))
+        //{
+
+        //    if (!hooks[1].enabled)
+        //    {
+        //        Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //        pointerPosition.z = 0;
+
+        //        var hits = Physics2D.RaycastAll(transform.position, pointerPosition - transform.position, 100f, hookableLayerMask);
+
+        //        var lenToPointer = (pointerPosition - transform.position).magnitude;
+
+        //        foreach (var hit in hits)
+        //        {
+        //            var lenToCollider = (transform.position - (Vector3)hit.point).magnitude;
+
+        //            Debug.Log("LEN TO COLLIDER:" + lenToCollider);
+        //            Debug.Log("LEN TO POINTER:" + lenToPointer);
+
+        //            if (lenToCollider < lenToPointer && lenToCollider >= hit.collider.GetComponent<SpriteRenderer>().bounds.size.x)
+        //            {
+        //                continue;
+        //            }
+
+        //            var point = new Vector2(hit.point.x, hit.point.y);
+        //            hooks[1].enabled = true;
+        //            hooks[1].target = point;
+
+        //            lineRenderer.positionCount += 2;
+
+        //            break;
+        //        }
+
+        //        //RaycastHit2D hit = Physics2D.Raycast(transform.position, pointerPosition - transform.position, 100f, hookableLayerMask);
+
+        //        //var lenToPointer = (pointerPosition - transform.position).magnitude;
+
+        //        //if (hit.collider != null)
+        //        //{
+        //        //    var lenToCollider = (transform.position - (Vector3)hit.point).magnitude;
+
+        //        //    if (lenToCollider >= lenToPointer)
+        //        //    {
+        //        //        hit.point = new Vector2(hit.point.x, hit.point.y);
+        //        //        hooks[1].enabled = true;
+        //        //        hooks[1].target = hit.point;
+
+        //        //        lineRenderer.positionCount += 2;
+        //        //    }
+        //        //}
+        //    }
+        //    else
+        //    {
+        //        hooks[1].enabled = false;
+        //        lineRenderer.positionCount -= 2;
+        //    }
+
+            //var currentHook = hooks[currentHookIndex];
+            //if (currentHook.enabled)
+            //{
+            //    currentHook.enabled = false;
+            //    lineRenderer.positionCount -= 2;
+            //    currentHookIndex = currentHookIndex == 0 ? hooks.Length - 1 : currentHookIndex - 1;
+            //}
+        //}
+
+        // -------------------------
 
         List<Vector3> points = new List<Vector3>();
         List<Vector3> firstHook = new List<Vector3>();
-        List<Vector3> secondHook = new List<Vector3>();
 
-        for (var i = 0; i < hooks.Length; i++)
+        if (hooks[0].enabled)
         {
-            if (hooks[i].enabled) {
-                var firstPoint = new Vector3(hooks[i].target.x, hooks[i].target.y);
-                var secondPoint = new Vector3(transform.position.x, transform.position.y);
-                var pointsCoordinates = new List<Vector3> { firstPoint, secondPoint };
-                points.AddRange(pointsCoordinates);
+            var firstPoint = new Vector3(hooks[0].target.x, hooks[0].target.y);
+            var secondPoint = new Vector3(transform.position.x, transform.position.y);
+            var pointsCoordinates = new List<Vector3> { firstPoint, secondPoint };
+            points.AddRange(pointsCoordinates);
 
-                if (i == 0) {
-                    firstHook.AddRange(pointsCoordinates);
-                } else if (i == 1)
-                {
-                    secondHook.AddRange(pointsCoordinates);
-                }
-            }
+            firstHook.AddRange(pointsCoordinates);
         }
 
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPositions(points.ToArray());
 
-        LightningRenderer[] lineElectricity = transform.GetChild(0).GetComponents<Spektr.LightningRenderer>();
-
         var lrFirst = lineElectricity[0];
-        var lrSecond = lineElectricity[1];
+        //var lrSecond = lineElectricity[1];
 
         if (firstHook.Count > 0)
         {
@@ -111,63 +209,10 @@ public class HookController : MonoBehaviour {
             lrFirst.emitterPosition = firstHook[1];
         }
 
-        if (secondHook.Count > 0)
-        {
-            lrSecond.receiverPosition = secondHook[0];
-            lrSecond.emitterPosition = secondHook[1];
-        }
-
-        //    var allHooksEnabled = false;
-
-        //    for (var i = 0; i < hooks.Length; i++)
-        //    {
-        //        var hook = hooks[i];
-
-        //        if (!hook.enabled)
-        //        {
-        //            Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //            pointerPosition.z = 0;
-        //            RaycastHit2D hit = Physics2D.Raycast(transform.position, pointerPosition - transform.position, 100f, hookableLayerMask);
-
-        //            if (hit.collider != null)
-        //            {
-        //                hit.point = new Vector2(hit.point.x, hit.point.y);
-
-        //                hook.connectedAnchor = hit.point;
-        //                hook.enabled = true;
-        //                hook.useMotor = true;
-        //            }
-
-        //            return;
-        //        } else if (i == hooks.Length - 1)
-        //        {
-        //            allHooksEnabled = true;
-        //            break;
-        //        }
-
-        //    }
-
-        //    if (allHooksEnabled)
-        //    {
-        //        for (var i = 0; i < hooks.Length; i++)
-        //        {
-        //            var hook = hooks[i];
-
-        //            if (hook.enabled)
-        //            {
-        //                hook.enabled = false;
-        //                return;
-        //            }
-        //        }
-        //    }
+        //if (secondHook.Count > 0)
+        //{
+        //    lrSecond.receiverPosition = secondHook[0];
+        //    lrSecond.emitterPosition = secondHook[1];
         //}
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.gameObject.layer == hookableLayer)
-        {
-
-        }
     }
 }
