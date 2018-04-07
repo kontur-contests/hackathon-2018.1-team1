@@ -9,6 +9,8 @@ public class LaserArrester : MonoBehaviour {
     private LineRenderer lr;
     private BoxCollider2D boxCollider;
 
+    public bool isStatic = false;
+
     public float laserShootSeconds = 1f;
     public float laserShootTimeoutSeconds = 0.5f;
 
@@ -21,7 +23,14 @@ public class LaserArrester : MonoBehaviour {
         lr = GetComponent<LineRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
 
-        StartCoroutine(ShootTimer());
+        if (!isStatic)
+        {
+            StartCoroutine(ShootTimer());
+        } else
+        {
+            lr.enabled = true;
+            boxCollider.enabled = true;
+        }
     }
 	
 	// Update is called once per frame
