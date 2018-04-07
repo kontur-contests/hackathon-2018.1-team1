@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 114048967343044640}
   - component: {fileID: 50537857060200688}
   - component: {fileID: 61299052731768200}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TerminalA
-  m_TagString: Untagged
+  m_TagString: TerminalA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,8 +36,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1793359095946572}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnd: 0
+  timeToComplete: -0.5
 --- !u!212 &212562822932193184
 SpriteRenderer:
   m_ObjectHideFlags: 1

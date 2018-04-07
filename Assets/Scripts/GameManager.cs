@@ -11,6 +11,26 @@ public class GameManager : MonoBehaviour {
 
     private int playerHealth = 100;
 
+    public GameObject playerPrefab;
+    private GameObject terminalA; 
+
+    private void Start()
+    {
+        terminalA = GameObject.FindWithTag("TerminalA");
+
+        if (playerPrefab != null)
+        {
+            var player = Instantiate(playerPrefab);
+            var position = terminalA.transform.position;
+            position.z = 0;
+
+            player.transform.position = position;
+
+            var cameraFollow = Camera.main.GetComponent<CameraFollow>();
+            cameraFollow.target = player;
+        }
+    }
+
     public void TakeDamage(int damage = 10)
     {
         playerHealth -= damage;

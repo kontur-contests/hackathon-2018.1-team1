@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 114062493776552840}
   m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1873808148623162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.43, y: -2.78, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 4967796341222610}
@@ -125,7 +125,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0046498775, y: -0.07767916}
+  m_Offset: {x: 0.0002508238, y: -0.013781548}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -136,7 +136,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.354177, y: 1.8446417}
+  m_Size: {x: 0.34537888, y: 0.6395153}
   m_EdgeRadius: 0
 --- !u!95 &95718871446127074
 Animator:
@@ -166,8 +166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cebea7b4002524eae1a8e374e070d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 0}
   hookSpeed: 10
-  hooksCount: 2
+  hooksCount: 1
 --- !u!114 &114150875600113604
 MonoBehaviour:
   m_ObjectHideFlags: 1
