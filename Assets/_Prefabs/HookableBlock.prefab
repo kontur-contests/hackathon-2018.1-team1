@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4286756249125180}
   - component: {fileID: 212703243426269890}
-  - component: {fileID: 61188510328074726}
   - component: {fileID: 50893157342818794}
+  - component: {fileID: 58756974389819810}
   m_Layer: 9
   m_Name: HookableBlock
   m_TagString: Untagged
@@ -62,8 +62,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61188510328074726
-BoxCollider2D:
+--- !u!58 &58756974389819810
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -75,18 +75,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!212 &212703243426269890
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -121,8 +111,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300040, guid: 4f74a6b118e8e414c99883157166f62f, type: 3}
-  m_Color: {r: 1, g: 0.1102941, b: 0.1102941, a: 1}
+  m_Sprite: {fileID: 21300012, guid: 993d7c369b86848baa37383e8eb9fbd2, type: 3}
+  m_Color: {r: 0, g: 0.9579299, b: 0.4735142, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
