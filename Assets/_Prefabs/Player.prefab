@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4967796341222610}
   - component: {fileID: 212618676695663690}
   - component: {fileID: 58954777490171666}
+  - component: {fileID: 114150875600113604}
+  - component: {fileID: 114451994343877880}
   m_Layer: 10
   m_Name: Hook
   m_TagString: Untagged
@@ -123,7 +125,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.034412622, y: -0.18510103}
+  m_Offset: {x: 0.0046498775, y: -0.07767916}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -134,7 +136,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.432302, y: 1.6297979}
+  m_Size: {x: 0.354177, y: 1.8446417}
   m_EdgeRadius: 0
 --- !u!95 &95718871446127074
 Animator:
@@ -166,6 +168,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hookSpeed: 10
   hooksCount: 2
+--- !u!114 &114150875600113604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195142667042654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27351f8a2de3e594c82df9a654aa9acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _emitterTransform: {fileID: 0}
+  _emitterPosition: {x: 0, y: -0, z: -0}
+  _receiverTransform: {fileID: 0}
+  _receiverPosition: {x: 0, y: 0, z: 0}
+  _throttle: 1
+  _pulseInterval: 0.2
+  _boltLength: 1
+  _lengthRandomness: 0
+  _noiseAmplitude: 0.1
+  _noiseFrequency: 0.9
+  _noiseMotion: 0.09
+  _color: {r: 0.65354973, g: 1, b: 0.102941155, a: 1}
+  _mesh: {fileID: 11400000, guid: ae28d7200908fb34ab683612d325defa, type: 2}
+  _randomSeed: 0
+  _shader: {fileID: 4800000, guid: 5f407f89f9b1b6a48a8b5352c16afef9, type: 3}
+--- !u!114 &114451994343877880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195142667042654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27351f8a2de3e594c82df9a654aa9acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _emitterTransform: {fileID: 0}
+  _emitterPosition: {x: 0, y: -0, z: -0}
+  _receiverTransform: {fileID: 0}
+  _receiverPosition: {x: 0, y: 0, z: 0}
+  _throttle: 1
+  _pulseInterval: 0.2
+  _boltLength: 1
+  _lengthRandomness: 0
+  _noiseAmplitude: 0.1
+  _noiseFrequency: 0.9
+  _noiseMotion: 0.09
+  _color: {r: 0.65354973, g: 1, b: 0.102941155, a: 1}
+  _mesh: {fileID: 11400000, guid: ae28d7200908fb34ab683612d325defa, type: 2}
+  _randomSeed: 0
+  _shader: {fileID: 4800000, guid: 5f407f89f9b1b6a48a8b5352c16afef9, type: 3}
 --- !u!114 &114598259315421462
 MonoBehaviour:
   m_ObjectHideFlags: 1
