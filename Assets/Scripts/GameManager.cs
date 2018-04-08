@@ -47,8 +47,18 @@ public class GameManager : MonoBehaviour {
         if (playerHealth <= 0)
         {
             playerHealth = 0;
-            GameOverLevel();
+
+            player.GetComponent<Animator>().SetTrigger("DeathTrigger");
+            player.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -10f));
+            player.GetComponent<TargetJoint2D>().enabled = false;
+            StartCoroutine(GameOverAfterTimeout());
         }
+    }
+
+    IEnumerator GameOverAfterTimeout ()
+    {
+        yield return new WaitForSeconds(2f);
+        GameOverLevel();
     }
 
     public void IncrementScore() {
