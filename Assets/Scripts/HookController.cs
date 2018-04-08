@@ -24,7 +24,7 @@ public class HookController : MonoBehaviour {
     public float hookSpeed = 10f;
     public int hooksCount = 1;
 
-    private LightningRenderer[] lineElectricity;
+    //private LightningRenderer[] lineElectricity;
 
     private Transform hookChild;
 
@@ -37,16 +37,16 @@ public class HookController : MonoBehaviour {
         hookableLayer = LayerMask.NameToLayer("HookableTerrain");
         hookableLayerMask = LayerMask.GetMask("HookableTerrain");
 
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-        lineRenderer.widthMultiplier = 0.05f;
-        lineRenderer.positionCount = 0;
+        lineRenderer = GetComponent<LineRenderer>();
+        //lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+        //lineRenderer.widthMultiplier = 0.05f;
+        //lineRenderer.positionCount = 0;
 
-        lineElectricity = transform.GetChild(0).GetComponents<Spektr.LightningRenderer>();
+        //lineElectricity = transform.GetChild(0).GetComponents<Spektr.LightningRenderer>();
 
         hookChild = transform.GetChild(0);
 
-        lineElectricity[0].enabled = false;
+        //lineElectricity[0].enabled = false;
 
         hooks = new TargetJoint2D[hooksCount];
 
@@ -96,7 +96,7 @@ public class HookController : MonoBehaviour {
                         sr.flipX = false;
                     }
 
-                    lineElectricity[0].enabled = true;
+                    //lineElectricity[0].enabled = true;
 
                     lineRenderer.positionCount += 2;
                 }
@@ -128,7 +128,7 @@ public class HookController : MonoBehaviour {
             } else
             {
                 hooks[0].enabled = false;
-                lineElectricity[0].enabled = false;
+                //lineElectricity[0].enabled = false;
                 lineRenderer.positionCount -= 2;
             }
         }
@@ -204,6 +204,8 @@ public class HookController : MonoBehaviour {
         List<Vector3> points = new List<Vector3>();
         List<Vector3> firstHook = new List<Vector3>();
 
+        Debug.Log("HOOKS:" + hooks);
+
         if (hooks[0].enabled)
         {
             var firstPoint = new Vector3(hooks[0].target.x, hooks[0].target.y);
@@ -217,13 +219,13 @@ public class HookController : MonoBehaviour {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPositions(points.ToArray());
 
-        var lrFirst = lineElectricity[0];
+        //var lrFirst = lineElectricity[0];
         //var lrSecond = lineElectricity[1];
 
         if (firstHook.Count > 0)
         {
-            lrFirst.receiverPosition = firstHook[0];
-            lrFirst.emitterPosition = firstHook[1];
+            //lrFirst.receiverPosition = firstHook[0];
+            //lrFirst.emitterPosition = firstHook[1];
             hookChild.position = firstHook[0];
         }
 
