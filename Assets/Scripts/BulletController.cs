@@ -7,7 +7,7 @@ public class BulletController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Camera.main.GetComponent<GameManager>().TakeDamage(30);
+        Camera.main.GetComponent<GameManager>().TakeDamage(5);
 
         Destroy(gameObject);
     }

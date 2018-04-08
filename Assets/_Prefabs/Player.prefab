@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cebea7b4002524eae1a8e374e070d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHookLength: 10
   lineRenderer: {fileID: 0}
   hookSpeed: 10
   hooksCount: 1

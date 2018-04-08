@@ -11,6 +11,9 @@ public class CameraFollow : MonoBehaviour
     public float leftBorder = -100f;
     public float rightBorder = 100f;
 
+    public float topBorder = 100f;
+    public float bottomBorder = 100f;
+
     void FixedUpdate()
     {
         if (target == null)
@@ -20,6 +23,7 @@ public class CameraFollow : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
         smoothedPosition.x = Mathf.Min(rightBorder, Mathf.Max(leftBorder, smoothedPosition.x));
+        smoothedPosition.y = Mathf.Min(topBorder, Mathf.Max(bottomBorder, smoothedPosition.y));
 
         smoothedPosition.z = -10;
 

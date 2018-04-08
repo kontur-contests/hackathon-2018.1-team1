@@ -15,6 +15,8 @@ public class HookController : MonoBehaviour {
     private int currentHookIndex = -1;
     private bool allHooksEnabled = false;
 
+    public float maxHookLength = 3f;
+
     public LineRenderer lineRenderer;
 
     public float hookSpeed = 10f;
@@ -64,7 +66,7 @@ public class HookController : MonoBehaviour {
                 Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 pointerPosition.z = 0;
 
-                var hits = Physics2D.RaycastAll(transform.position, pointerPosition - transform.position, 100f, hookableLayerMask);
+                var hits = Physics2D.RaycastAll(transform.position, pointerPosition - transform.position, maxHookLength, hookableLayerMask);
 
                 var lenToPointer = (pointerPosition - transform.position).magnitude;
 
