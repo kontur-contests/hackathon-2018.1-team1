@@ -1644,6 +1644,8 @@ MonoBehaviour:
   target: {fileID: 0}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: 0}
+  leftBorder: -1
+  rightBorder: 1
 --- !u!114 &861137777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2447,6 +2449,11 @@ Prefab:
     - target: {fileID: 4697981704655210, guid: 85c6a054057502d4a8e200ff88361c2e, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 212511644655577680, guid: 85c6a054057502d4a8e200ff88361c2e,
+        type: 2}
+      propertyPath: m_DrawMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85c6a054057502d4a8e200ff88361c2e, type: 2}
