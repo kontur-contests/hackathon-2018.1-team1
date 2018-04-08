@@ -9,15 +9,11 @@ public class BitcoinController : MonoBehaviour {
 	void Start () {
 		gm = Camera.main.GetComponent<GameManager> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-	void OnCollisionEnter2D(Collision2D collision) {
-		Debug.Log ("collision");
-		gm.IncrementScore ();
-		Destroy (gameObject);
-	}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("collision");
+        gm.IncrementScore();
+        Destroy(gameObject);
+    }
 }

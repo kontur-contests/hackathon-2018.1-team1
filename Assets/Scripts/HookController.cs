@@ -15,6 +15,8 @@ public class HookController : MonoBehaviour {
     private int currentHookIndex = -1;
     private bool allHooksEnabled = false;
 
+    private SpriteRenderer sr;
+
     public float maxHookLength = 3f;
 
     public LineRenderer lineRenderer;
@@ -27,6 +29,8 @@ public class HookController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        sr = GetComponent<SpriteRenderer>();
+
         //distanceJoint = GetComponent<SliderJoint2D>();
         hookableLayer = LayerMask.NameToLayer("HookableTerrain");
         hookableLayerMask = LayerMask.GetMask("HookableTerrain");
@@ -72,8 +76,6 @@ public class HookController : MonoBehaviour {
 
                 var listHits = new List<RaycastHit2D>(hits).OrderBy(hit => Math.Abs((transform.position - (Vector3)hit.point).magnitude - lenToPointer)).ToList();
 
-                
-
                 if (listHits.Count > 0)
                 {
                     var firstHit = listHits[0];
@@ -81,6 +83,14 @@ public class HookController : MonoBehaviour {
                     var point = new Vector2(firstHit.point.x, firstHit.point.y);
                     hooks[0].enabled = true;
                     hooks[0].target = point;
+
+                    if (point.x < transform.position.x)
+                    {
+                        sr.flipX = true;
+                    } else
+                    {
+                        sr.flipX = false;
+                    }
 
                     lineElectricity[0].enabled = true;
 

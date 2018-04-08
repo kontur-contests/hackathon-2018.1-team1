@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spektr;
 
 public class LaserArrester : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class LaserArrester : MonoBehaviour {
     private Transform rightArrester;
     private LineRenderer lr;
     private BoxCollider2D boxCollider;
+    private LightningRenderer lnr;
 
     public bool isStatic = false;
 
@@ -21,6 +23,7 @@ public class LaserArrester : MonoBehaviour {
         rightArrester = transform.GetChild(1);
 
         lr = GetComponent<LineRenderer>();
+        lnr = GetComponent<LightningRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
 
         if (!isStatic)
@@ -29,6 +32,7 @@ public class LaserArrester : MonoBehaviour {
         } else
         {
             lr.enabled = true;
+            lnr.enabled = true;
             boxCollider.enabled = true;
         }
     }
@@ -43,6 +47,7 @@ public class LaserArrester : MonoBehaviour {
     private void ShootLaser ()
     {
         lr.enabled = true;
+        lnr.enabled = true;
         boxCollider.enabled = true;
         StartCoroutine(DisableLaser());
     }
@@ -51,6 +56,7 @@ public class LaserArrester : MonoBehaviour {
     {
         yield return new WaitForSeconds(laserShootTimeoutSeconds);
         lr.enabled = false;
+        lnr.enabled = false;
         boxCollider.enabled = false;
     }
 

@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour {
     private int playerHealth = 100;
 
     public GameObject playerPrefab;
-    private GameObject terminalA; 
+    private GameObject terminalA;
+
+    private GameObject player;
 
     private void Start()
     {
@@ -22,12 +24,14 @@ public class GameManager : MonoBehaviour {
         {
             var player = Instantiate(playerPrefab);
             var position = terminalA.transform.position;
-            position.z = 0;
+            position.z = -5;
 
             player.transform.position = position;
 
             var cameraFollow = Camera.main.GetComponent<CameraFollow>();
             cameraFollow.target = player;
+
+            this.player = player;
         }
     }
 
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour {
         playerHealth -= damage;
 
         healthText.text = "health: " + playerHealth;
+
+        player.GetComponent<FlashTint>().Blink();
 
         if (playerHealth <= 0)
         {
