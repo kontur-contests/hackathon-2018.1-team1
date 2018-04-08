@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
 	private int score;
-	public Text scoreText;
-    public Text healthText;
+	public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI healthText;
 
     private int playerHealth = 100;
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour {
     {
         playerHealth -= damage;
 
-        healthText.text = "health: " + playerHealth;
+        healthText.text = "health " + playerHealth;
 
         player.GetComponent<FlashTint>().Blink();
 
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour {
 
     public void IncrementScore() {
 		score += 10;
-        scoreText.text = "score: " + score;
+        scoreText.text = "score " + score;
 	}
 
     public void ChangeMenuToGame()
