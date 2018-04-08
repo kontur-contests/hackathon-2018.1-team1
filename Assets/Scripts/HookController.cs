@@ -26,6 +26,8 @@ public class HookController : MonoBehaviour {
 
     private LightningRenderer[] lineElectricity;
 
+    private Transform hookChild;
+
 
     // Use this for initialization
     void Start() {
@@ -41,6 +43,8 @@ public class HookController : MonoBehaviour {
         lineRenderer.positionCount = 0;
 
         lineElectricity = transform.GetChild(0).GetComponents<Spektr.LightningRenderer>();
+
+        hookChild = transform.GetChild(0);
 
         lineElectricity[0].enabled = false;
 
@@ -96,7 +100,6 @@ public class HookController : MonoBehaviour {
 
                     lineRenderer.positionCount += 2;
                 }
-
 
 
                 //foreach (var hit in hits)
@@ -221,6 +224,7 @@ public class HookController : MonoBehaviour {
         {
             lrFirst.receiverPosition = firstHook[0];
             lrFirst.emitterPosition = firstHook[1];
+            hookChild.position = firstHook[0];
         }
 
         //if (secondHook.Count > 0)
