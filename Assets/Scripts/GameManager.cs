@@ -61,8 +61,8 @@ public class GameManager : MonoBehaviour {
         GameOverLevel();
     }
 
-    public void IncrementScore() {
-		score += 10;
+    public void IncrementScore(int count = 10) {
+		score += count;
         scoreText.text = "score " + score;
 	}
 
